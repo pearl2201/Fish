@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Game\Entitires\Fish.cs">
+    <Files>
+      <File FileName="Assets\Script\Game\MainGameScript.cs" Line="24" Column="1" />
+      <File FileName="Assets\Script\Game\Entitires\Fish.cs" Line="17" Column="28" />
+      <File FileName="Assets\Script\Utils\Constants.cs" Line="11" Column="54" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
