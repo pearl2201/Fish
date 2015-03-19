@@ -66,13 +66,13 @@ public class ItemPopup : MonoBehaviour
     }
     public void upgradeDamageOnDown()
     {
-        if(Prefs.Instance().getSpeed(idCannon) != 10)
+        if(Prefs.Instance().getDamage(idCannon) != 10)
             damageUpgradeBtnBg.SetSprite("nut-nc-2-cham");
     }
 
     public void upgradeDamageOnUp()
     {
-        if(Prefs.Instance().getSpeed(idCannon) != 10)
+        if (Prefs.Instance().getDamage(idCannon) != 10)
         {
             damageUpgradeBtnBg.SetSprite("nut-nc-1");
             //check money

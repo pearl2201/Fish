@@ -20,28 +20,29 @@ public class FishManager : MonoBehaviour
     public GameObject fishModel;
     public float tm;
     public float duration = 1f / 30f;
+    public GameObject[] fishModelCenter;
 
     void Start()
     {
         float limit = Random.Range(2, 4);
         for(int i = 0; i < limit; i++)
         {
-            spawnFish(fish1, TYPEFISH.FISH1);
+            spawnFishByChance(fish1, TYPEFISH.FISH1, 0);
         }
         limit = Random.Range(0, 4);
         for(int i = 0; i < limit; i++)
         {
-            spawnFish(fish1, TYPEFISH.FISH2);
+            spawnFishByChance(fish1, TYPEFISH.FISH2, 1);
         }
         limit = Random.Range(0, 4);
         for(int i = 0; i < limit; i++)
         {
-            spawnFish(fish1, TYPEFISH.FISH3);
+            spawnFishByChance(fish1, TYPEFISH.FISH3, 2);
         }
         limit = Random.Range(0, 4);
         for(int i = 0; i < limit; i++)
         {
-            spawnFish(fish1, TYPEFISH.FISH4);
+            spawnFishByChance(fish1, TYPEFISH.FISH4, 3);
         }
     }
 
@@ -56,29 +57,29 @@ public class FishManager : MonoBehaviour
             {
                 int t = Random.Range(0, 81);
                 if(t <= 12)
-                    spawnFishByChance(fish1, TYPEFISH.FISH1);
+                    spawnFishByChance(fish1, TYPEFISH.FISH1,0);
                 else if(t <= 23)
-                    spawnFishByChance(fish2, TYPEFISH.FISH2);
+                    spawnFishByChance(fish2, TYPEFISH.FISH2,1);
                 else if(t <= 33)
-                    spawnFishByChance(fish3, TYPEFISH.FISH3);
+                    spawnFishByChance(fish3, TYPEFISH.FISH3,2);
                 else if(t <= 42)
-                    spawnFishByChance(fish4, TYPEFISH.FISH4);
+                    spawnFishByChance(fish4, TYPEFISH.FISH4,3);
                 else if(t <= 50)
-                    spawnFishByChance(fish5, TYPEFISH.FISH5);
+                    spawnFishByChance(fish5, TYPEFISH.FISH5,4);
                 else if(t <= 57)
-                    spawnFishByChance(fish6, TYPEFISH.FISH6);
+                    spawnFishByChance(fish6, TYPEFISH.FISH6,5);
                 else if(t <= 63)
-                    spawnFishByChance(fish7, TYPEFISH.FISH7);
+                    spawnFishByChance(fish7, TYPEFISH.FISH7,6);
                 else if(t <= 69)
-                    spawnFishByChance(fish8, TYPEFISH.FISH8);
+                    spawnFishByChance(fish8, TYPEFISH.FISH8,7);
                 else if(t <= 74)
-                    spawnFishByChance(fish9, TYPEFISH.FISH9);
+                    spawnFishByChance(fish9, TYPEFISH.FISH9,8);
                 else if(t <= 77)
-                    spawnFishByChance(fish10, TYPEFISH.FISH10);
+                    spawnFishByChance(fish10, TYPEFISH.FISH10,9);
                 else if(t == 79)
-                    spawnFishByChance(shark1, TYPEFISH.SHARK1);
+                    spawnFishByChance(shark1, TYPEFISH.SHARK1,10);
                 else if(t == 80)
-                    spawnFishByChance(shark2, TYPEFISH.SHARK2);
+                    spawnFishByChance(shark2, TYPEFISH.SHARK2,11);
             }
         }
     }
@@ -100,7 +101,7 @@ public class FishManager : MonoBehaviour
         }
     }
 
-    void spawnFishByChance(List<Fish> fishList, TYPEFISH type)
+    void spawnFishByChance(List<Fish> fishList, TYPEFISH type, int kind)
     {
         if(fishList.Count < DataFishContainer.GetCoreFish(type).maxNumGroup)
         {
@@ -114,7 +115,7 @@ public class FishManager : MonoBehaviour
             float posX = -(Constants.HALF_SCREEN_UNIT_WIDTH ) * localScale;
             for(int i = 0; i < t; i++)
             {
-                GameObject go = Instantiate(fishModel, transform.position, Quaternion.identity) as GameObject;
+                GameObject go = Instantiate(fishModelCenter[kind], transform.position, Quaternion.identity) as GameObject;
                 go.transform.parent = transform;
                 Fish fishScript = go.GetComponent<Fish>();
                 fishList.Add(fishScript);

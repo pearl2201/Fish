@@ -11,16 +11,19 @@ public class StartScene : MonoBehaviour,CloseUpgradePopupInterface
     public GameObject upgradePopup;
     public void StartCLick()
     {
+        SoundManager.Instance().playBtnClick();
         Application.LoadLevel("GameScene");
     }
 
     public void ExitClick()
     {
+        SoundManager.Instance().playBtnClick();
         Application.Quit();
     }
 
     public void UpgradeClick()
     {
+        SoundManager.Instance().playBtnClick();
         uiStartScene.SetActive(false);
         if (upgradePopup!=null)
         {

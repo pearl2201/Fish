@@ -12,6 +12,7 @@ public class CloseBtn : MonoBehaviour
 
     public void ClosePopup()
     {
+        SoundManager.Instance().playBtnClick();
         close.SendMessage("CloseUpgradePopup");
     }
 }

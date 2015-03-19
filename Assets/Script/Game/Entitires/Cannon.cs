@@ -32,6 +32,7 @@ public class Cannon : MonoBehaviour
                 indexCannon = MIN_CANNON_INDEX;
             }
             sprite.SetSprite("sung" + indexCannon + "-1");
+            SoundManager.Instance().playChangeGun();
         }
     }
 
@@ -45,6 +46,7 @@ public class Cannon : MonoBehaviour
                 indexCannon = MAX_CANNON_INDEX;
             }
             sprite.SetSprite("sung" + indexCannon + "-1");
+            SoundManager.Instance().playChangeGun();
         }
     }
 

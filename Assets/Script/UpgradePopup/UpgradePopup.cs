@@ -36,6 +36,7 @@ public class UpgradePopup : MonoBehaviour
 
     public void upgradeSpeedOnDown()
     {
+        SoundManager.Instance().playBtnClick();
         itemPopup[currentIdCannon - 1].upgradeSpeedOnDown();
     }
 
@@ -48,6 +49,7 @@ public class UpgradePopup : MonoBehaviour
 
     public void upgradeDamageOnDown()
     {
+        SoundManager.Instance().playBtnClick();
         itemPopup[currentIdCannon - 1].upgradeDamageOnDown();
     }
 

@@ -14,5 +14,6 @@ public class Constants
 		public static float SPEED_BULLET_MODEL = 0.0375f;
 		public static float SPEED_FISH_MODEL = 0.005f;
         public static int LIMIT_FISH_IN_SCREEN = 50;
+        public static float TIME_EVENT = 4f;
 }
 

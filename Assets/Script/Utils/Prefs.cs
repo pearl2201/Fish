@@ -9,9 +9,14 @@ public class Prefs
     private static string UPGRADE_SPEED = "upgrade_speed";
     private static string UPGRADE_DAMAGE = "upgrade_damage";
     private static string COIN = "coin";
+    private static string SOUND = "sound";
+    private static string MUSIC = "music";
+    private static string NUMB_SET = "numb_set";
+    private static string NUMB_BOMB = "numn_bomb";
+    private static string NUMB_HOURGLASS = "numb_hourglass";
     public static Prefs Instance()
     {
-        if(_instance == null)
+        if (_instance == null)
         {
             _instance = new Prefs();
 
@@ -21,11 +26,11 @@ public class Prefs
 
     public Prefs()
     {
-        if(PlayerPrefs.HasKey(VERSION_CODE))
+        if (PlayerPrefs.HasKey(VERSION_CODE))
         {
             // getData()
 
-            if(PlayerPrefs.GetInt(VERSION_CODE) != Constants.VERSION_CODE)
+            if (PlayerPrefs.GetInt(VERSION_CODE) != Constants.VERSION_CODE)
             {
                 initData();
             }
@@ -43,12 +48,17 @@ public class Prefs
 
         PlayerPrefs.SetInt(VERSION_CODE, Constants.VERSION_CODE);
         setCoin(10000);
-        for(int i = 1; i < 8; i++ )
+        for (int i = 1; i < 8; i++)
         {
             setDamage(i, 1);
             setSpeed(i, 1);
+            setNumbBomb(10);
+            setNumbHourGlass(10);
+            setNumbSet(10);
+            setSound(true);
+            setMusic(true);
         }
-            PlayerPrefs.Save();
+        PlayerPrefs.Save();
     }
 
     public void setDamage(int idCannon, int value)
@@ -58,7 +68,7 @@ public class Prefs
 
     public void setSpeed(int idCannon, int value)
     {
-        SetInt(UPGRADE_SPEED+idCannon, value);
+        SetInt(UPGRADE_SPEED + idCannon, value);
     }
 
     public int getDamage(int idCannon)
@@ -80,11 +90,60 @@ public class Prefs
     {
         SetInt(COIN, coin);
     }
+
+    public bool getSound()
+    {
+        return GetBool(SOUND);
+    }
+
+    public void setSound(bool active)
+    {
+        SaveBool(SOUND, active);
+    }
+
+    public bool getMusic()
+    {
+        return GetBool(MUSIC);
+    }
+
+    public void setMusic(bool active)
+    {
+        SaveBool(MUSIC, active);
+    }
+
+    public void setNumbSet(int numb)
+    {
+        SetInt(NUMB_SET, numb);
+    }
+
+    public int getNumbSet()
+    {
+        return GetInt(NUMB_SET);
+    }
+    public void setNumbBomb(int numb)
+    {
+        SetInt(NUMB_BOMB, numb);
+    }
+
+    public int getNumbBomb()
+    {
+        return GetInt(NUMB_BOMB);
+    }
+    public void setNumbHourGlass(int numb)
+    {
+        SetInt(NUMB_HOURGLASS, numb);
+    }
+
+    public int getNumbGlass()
+    {
+        return GetInt(NUMB_HOURGLASS);
+    }
+
     ////////////////////////////////////////////
 
     public int GetInt(string name)
     {
-        if(PlayerPrefs.HasKey(name))
+        if (PlayerPrefs.HasKey(name))
         {
             return PlayerPrefs.GetInt(name);
         }
@@ -100,9 +159,9 @@ public class Prefs
 
     public bool GetBool(string name)
     {
-        if(PlayerPrefs.HasKey(name))
+        if (PlayerPrefs.HasKey(name))
         {
-            if(PlayerPrefs.GetInt(name) == 1)
+            if (PlayerPrefs.GetInt(name) == 1)
                 return true;
             else
                 return false;
@@ -113,7 +172,7 @@ public class Prefs
 
     public void SaveBool(string name, bool value)
     {
-        if(value)
+        if (value)
             PlayerPrefs.SetInt(name, 1);
         else
             PlayerPrefs.SetInt(name, 0);
