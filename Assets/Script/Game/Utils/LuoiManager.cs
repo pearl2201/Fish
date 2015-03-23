@@ -34,6 +34,7 @@ public class LuoiManager : MonoBehaviour
 
     public void setupLuoi(Bullet bullet)
     {
+        MainGameScript.lockBullet = false;
         GameObject go = Instantiate(luoiModel) as GameObject;
 
         go.transform.position = bullet.transform.position;
@@ -73,7 +74,7 @@ public class LuoiManager : MonoBehaviour
             luoi.transform.localScale = Vector3.Lerp(sizeLuoiNho, sizeLuoiChuan, t / 0.1f);
             yield return null;
         }
-        MainGameScript.lockBullet = false;
+        
 
         Destroy(luoi.gameObject);
 

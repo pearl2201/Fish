@@ -28,6 +28,7 @@ public class PopupText : MonoBehaviour
 
     public void Close()
     {
+        SoundManager.Instance().playBtnClick();
         gameObject.SetActive(false);
     }
 

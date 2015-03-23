@@ -32,12 +32,14 @@ public class UpgradePopup : MonoBehaviour
             itemPopup[idCannon - 1].loadItem();
             currentIdCannon = idCannon;
         }
+        SoundManager.Instance().playBtnClick();
     }
 
     public void upgradeSpeedOnDown()
     {
         SoundManager.Instance().playBtnClick();
         itemPopup[currentIdCannon - 1].upgradeSpeedOnDown();
+
     }
 
     public void upgradeSpeedOnUp()

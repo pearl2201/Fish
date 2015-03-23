@@ -247,7 +247,7 @@ public class Fish : MonoBehaviour
 
     public bool canbeCapture(int power)
     {
-        return Random.Range(0, 1f) <= coreFish.captureRate * (0.5 + (power - 1) * 0.125f) + 0.05f * (Prefs.Instance().getDamage(power));
+        return Random.Range(0, 1f) <= coreFish.captureRate * (0.7 + (power - 1) * 0.125f) + 0.03f * (Prefs.Instance().getDamage(power));
     }
 
     public void beCapture()

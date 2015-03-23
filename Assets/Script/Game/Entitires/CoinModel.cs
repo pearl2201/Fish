@@ -14,7 +14,7 @@ public class CoinModel : MonoBehaviour
     public Transform endOfCoin;
     public Vector3 beginPosOfValue;
     public Vector3 beginOfCoin;
-    public void runAnim(int coinValue, Transform endOfCoin)
+    public void runAnim(int coinValue, Transform endOfCoin, CoinManager coinManager)
     {
         if(coinValue <= 10)
         {
@@ -28,20 +28,21 @@ public class CoinModel : MonoBehaviour
         beginOfCoin = coin.transform.position;
         beginPosOfValue = value.transform.position;
         this.endOfCoin = endOfCoin;
-        StartCoroutine(run());
+        StartCoroutine(run(coinManager));
     }
 
-    IEnumerator run()
+    IEnumerator run(CoinManager coinManager)
     {
         float sumDeltaTime = 0;
         float duration = 0.6f;
         while (sumDeltaTime <=duration)
         {
             sumDeltaTime += Time.deltaTime;
-            coin.transform.position = Vector3.Lerp(beginOfCoin, endOfCoin.position, sumDeltaTime);
-            value.transform.position = Vector3.Lerp(beginPosOfValue, endPosOfValue.transform.position, sumDeltaTime);
+            coin.transform.position = Vector3.Lerp(beginOfCoin, endOfCoin.position, sumDeltaTime/duration);
+            value.transform.position = Vector3.Lerp(beginPosOfValue, endPosOfValue.transform.position, sumDeltaTime/duration);
             yield return null;
         }
+        coinManager.fixText();
         Destroy(this.gameObject);
 
         

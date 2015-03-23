@@ -67,7 +67,10 @@
      <Compile Include="Assets\Script\UpgradePopup\CloseBtn.cs" />
      <Compile Include="Assets\Script\UpgradePopup\CloseUpgradePopupInterface.cs" />
      <Compile Include="Assets\Script\UpgradePopup\CoinUpgradeManager.cs" />
+     <Compile Include="Assets\Script\UpgradePopup\CuaHang.cs" />
      <Compile Include="Assets\Script\UpgradePopup\ItemPopup.cs" />
+     <Compile Include="Assets\Script\UpgradePopup\ItemVatPham.cs" />
+     <Compile Include="Assets\Script\UpgradePopup\MuaVatPham.cs" />
      <Compile Include="Assets\Script\UpgradePopup\PopupText.cs" />
      <Compile Include="Assets\Script\UpgradePopup\UpgradePopup.cs" />
      <Compile Include="Assets\Script\Utils\Close\CloseInterface.cs" />

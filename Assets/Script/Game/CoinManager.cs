@@ -35,12 +35,12 @@ public class CoinManager : MonoBehaviour
         valueG += value;
         Prefs.Instance().setCoin(valueG);
       
-        fixText();
+        
         GameObject go = Instantiate(coinModel, pos, Quaternion.identity) as GameObject;
         CoinModel coinScript = go.GetComponent<CoinModel>();
         if(coinScript != null)
         {
-            coinScript.runAnim(value, endOfCoin);
+            coinScript.runAnim(value, endOfCoin,this);
         }
         SoundManager.Instance().playCoin();
     }
