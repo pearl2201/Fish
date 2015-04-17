@@ -9,6 +9,17 @@ public class StartScene : MonoBehaviour,CloseUpgradePopupInterface
 
     public GameObject uiStartScene;
     public GameObject upgradePopup;
+
+    public static StartScene _instance;
+
+    public static StartScene Instance()
+    {
+        return _instance;
+    }
+    void Awake()
+    {
+        _instance = this;
+    }
     public void StartCLick()
     {
         SoundManager.Instance().playBtnClick();
@@ -44,6 +55,22 @@ public class StartScene : MonoBehaviour,CloseUpgradePopupInterface
     public void CloseUpgradePopup()
     {
         upgradePopup.gameObject.SetActive(false);
+        uiStartScene.gameObject.SetActive(true);
+    }
+
+    public void hideAllPopupMain()
+    {
+        upgradePopup.gameObject.SetActive(false);
+        uiStartScene.gameObject.SetActive(false);
+    }
+
+    public void showUpgradePopupOnly()
+    {
+        upgradePopup.gameObject.SetActive(true);
+    }
+
+    public void showUiStartSceneOnly()
+    {
         uiStartScene.gameObject.SetActive(true);
     }
 

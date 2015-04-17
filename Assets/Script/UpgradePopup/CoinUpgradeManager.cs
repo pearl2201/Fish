@@ -13,4 +13,10 @@ public class CoinUpgradeManager : MonoBehaviour {
 	void Update () {
         coin.text = "" + Prefs.Instance().getCoin();
 	}
+
+    public void OpenNapThe()
+    {
+        PopupThieuTien.Instance().Show(PopupThieuTien.SHOW_BUY_GOLD);
+        StartScene.Instance().hideAllPopupMain();
+    }
 }

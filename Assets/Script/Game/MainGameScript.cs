@@ -21,7 +21,9 @@ public class MainGameScript : MonoBehaviour
     public float timeInsHealthCountDown;
     public float stepDecHealth;
     public tk2dTextMesh timeText;
+    public FishManager fishManager;
     public Clock clock;
+    public HealthDisplay healthDisplayScript;
     public enum GameState
     {
         SET, BANHMY, GUN, BOM, PAUSE, ENDGAME
@@ -31,7 +33,7 @@ public class MainGameScript : MonoBehaviour
 
     public static MainGameScript Instance()
     {
-        if (_instance == null)
+        if(_instance == null)
         {
             Debug.Log("loi roi em oi");
         }
@@ -42,27 +44,61 @@ public class MainGameScript : MonoBehaviour
         _instance = this;
     }
     // Use this for initialization
+    public GameObject firstPlayImage;
     void Start()
+    {
+        if (Prefs.isFirstplay)
+        {
+            state = GameState.ENDGAME;
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            outOfFristPlay();
+            
+        }
+    }
+
+    public void outOfFristPlay()
+    {
+        Destroy(firstPlayImage);
+        clock = new Clock();
+        if(Prefs.Instance().getLive() != 0)
+        {
+            startGame();
+        }
+        else
+        {
+            // show popup het live
+            state = GameState.ENDGAME;
+            Time.timeScale = 0f;
+            PopupThieuTien.Instance().Show(PopupThieuTien.SHOW_BUY_HEART);
+        }
+        //startGame();
+    }
+    void startGame()
     {
         lockBullet = false;
         state = GameState.GUN;
         health = 100;
         Time.timeScale = 1f;
         stepDecHealth = 0.025f;
-        clock = new Clock();
+        Prefs.Instance().setLive(Prefs.Instance().getLive() - 1);
+        healthDisplayScript.updateHealth();
+        fishManager.spawnFishFirst();
     }
-
     // Update is called once per frame
     void Update()
     {
-        if (state != GameState.ENDGAME)
+        if(state != GameState.ENDGAME && state != GameState.PAUSE)
         {
             clock.update(Time.deltaTime);
             timeText.text = clock.getText();
-            if (!isHourGlassRunning)
+            if(!isHourGlassRunning)
             {
                 timeInsHealthCountDown += Time.deltaTime;
-                if (timeInsHealthCountDown >10){
+                if(timeInsHealthCountDown > 10)
+                {
                     stepDecHealth = stepDecHealth + 0.005f;
                     timeInsHealthCountDown = 0;
                 }
@@ -71,7 +107,7 @@ public class MainGameScript : MonoBehaviour
             else
             {
                 hourGlassCountDown -= Time.deltaTime;
-                if (hourGlassCountDown <=0)
+                if(hourGlassCountDown <= 0)
                 {
                     hourGlassCountDown = 0;
                     isHourGlassRunning = false;
@@ -79,16 +115,17 @@ public class MainGameScript : MonoBehaviour
                 }
             }
 
-            if (health < 0)
+            if(health < 0)
             {
                 health = 0;
                 Debug.Log("Game Over");
                 endGamePopup.gameObject.SetActive(true);
                 Time.timeScale = 0f;
                 state = GameState.ENDGAME;
+
                 //SoundManager.Instance().playEndGame();
             }
-            else if (health > 100)
+            else if(health > 100)
             {
                 health = 100;
             }
@@ -96,6 +133,26 @@ public class MainGameScript : MonoBehaviour
         }
     }
 
+    public GameObject pausePopup;
+    public void pause()
+    {
+        if(state == GameState.GUN)
+        {
+            Time.timeScale = 0f;
+            state = GameState.PAUSE;
+            pausePopup.gameObject.SetActive(true);
+        }
+    }
+
+    public void unPause()
+    {
+        if(state == GameState.PAUSE)
+        {
+            Time.timeScale = 1f;
+            state = GameState.GUN;
+            pausePopup.gameObject.SetActive(false);
+        }
+    }
     public void fixDisplayHealth()
     {
         healthRect.x = -(1 - health / 100);
@@ -110,20 +167,20 @@ public class MainGameScript : MonoBehaviour
     public void fireBullet()
     {
 
-        if (state == GameState.GUN)
+        if(state == GameState.GUN)
         {
-            if (!lockBullet)
+            if(!lockBullet)
             {
                 // get position of mouse;
                 Vector3 aPoint = cannon.transform.position;
                 Vector3 bPoint = new Vector3();
-                if (Application.platform == RuntimePlatform.WindowsEditor)
+                if(Application.platform == RuntimePlatform.WindowsEditor)
                 {
                     bPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 }
                 else
                 {
-                    if (Input.touchCount > 0)
+                    if(Input.touchCount > 0)
                         bPoint = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
                 }
                 bPoint.z = aPoint.z;
@@ -131,7 +188,7 @@ public class MainGameScript : MonoBehaviour
                 Vector3 forward = new Vector3(0, 1, 0);
 
                 float goc = Vector3.Angle(targetDir, forward);
-                if (targetDir.x > 0)
+                if(targetDir.x > 0)
                 {
                     goc *= (-1);
                 }
@@ -149,7 +206,7 @@ public class MainGameScript : MonoBehaviour
                 SoundManager.Instance().playShot();
             }
         }
-        else if (state == GameState.BANHMY)
+        else if(state == GameState.BANHMY)
         {
             state = GameState.GUN;
             effectManager.setLuoiActive(false, state);
@@ -157,9 +214,9 @@ public class MainGameScript : MonoBehaviour
             Fish[] fishes = fishContainer.GetComponentsInChildren<Fish>();
             b.center = new Vector3(b.center.x, b.center.y, fishContainer.transform.position.z);
             Debug.Log("Bounds :" + b.ToString());
-            for (int i = 0; i < fishes.GetLength(0); i++)
+            for(int i = 0; i < fishes.GetLength(0); i++)
             {
-                if (fishes[i].getBound().Intersects(b))
+                if(fishes[i].getBound().Intersects(b))
                 {
                     fishes[i].gapBanhMy(effectManager.point);
                 }
@@ -167,7 +224,7 @@ public class MainGameScript : MonoBehaviour
             effectManager.runBanhMy();
 
         }
-        else if (state == GameState.SET)
+        else if(state == GameState.SET)
         {
             state = GameState.GUN;
             effectManager.setLuoiActive(false, state);
@@ -175,9 +232,9 @@ public class MainGameScript : MonoBehaviour
             Fish[] fishes = fishContainer.GetComponentsInChildren<Fish>();
             b.center = new Vector3(b.center.x, b.center.y, fishContainer.transform.position.z);
             Debug.Log("Bounds :" + b.ToString());
-            for (int i = 0; i < fishes.GetLength(0); i++)
+            for(int i = 0; i < fishes.GetLength(0); i++)
             {
-                if (fishes[i].getBound().Intersects(b))
+                if(fishes[i].getBound().Intersects(b))
                 {
                     fishes[i].setDanh(effectManager.setEffect);
                 }
@@ -186,7 +243,7 @@ public class MainGameScript : MonoBehaviour
             SoundManager.Instance().playEventSet();
 
         }
-        else if (state == GameState.BOM)
+        else if(state == GameState.BOM)
         {
             state = GameState.GUN;
             effectManager.setLuoiActive(false, state);
@@ -194,9 +251,9 @@ public class MainGameScript : MonoBehaviour
             Fish[] fishes = fishContainer.GetComponentsInChildren<Fish>();
             b.center = new Vector3(b.center.x, b.center.y, fishContainer.transform.position.z);
             Debug.Log("Bounds :" + b.ToString());
-            for (int i = 0; i < fishes.GetLength(0); i++)
+            for(int i = 0; i < fishes.GetLength(0); i++)
             {
-                if (fishes[i].getBound().Intersects(b))
+                if(fishes[i].getBound().Intersects(b))
                 {
                     fishes[i].gapBomb();
                 }
@@ -215,7 +272,7 @@ public class MainGameScript : MonoBehaviour
 
     public void OnSetTouchDown()
     {
-        if (Prefs.Instance().getNumbSet() > 0)
+        if(Prefs.Instance().getNumbSet() > 0)
         {
             state = GameState.SET;
             effectManager.setLuoiActive(true, state);
@@ -232,7 +289,7 @@ public class MainGameScript : MonoBehaviour
 
     public void OnHourGlassTouchDown()
     {
-        if (Prefs.Instance().getNumbGlass() > 0)
+        if(Prefs.Instance().getNumbGlass() > 0)
         {
             hourGlassObject.gameObject.SetActive(true);
             isHourGlassRunning = true;
@@ -245,7 +302,7 @@ public class MainGameScript : MonoBehaviour
 
     public void OnBomTouchDown()
     {
-        if (Prefs.Instance().getNumbBomb() > 0)
+        if(Prefs.Instance().getNumbBomb() > 0)
         {
             state = GameState.BOM;
             effectManager.setLuoiActive(true, state);
@@ -259,5 +316,13 @@ public class MainGameScript : MonoBehaviour
         Time.timeScale = 1f;
         Application.LoadLevel(Application.loadedLevel);
         SoundManager.Instance().playBtnClick();
+    }
+
+    public void hetCoin()
+    {
+        endGamePopup.gameObject.SetActive(true);
+        Time.timeScale = 0f;
+        state = GameState.ENDGAME;
+        PopupText.Instance().Show("Bạn không đủ vàng để tiếp tục.");
     }
 }

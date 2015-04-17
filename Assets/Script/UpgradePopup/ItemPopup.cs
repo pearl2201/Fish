@@ -15,14 +15,20 @@ public class ItemPopup : MonoBehaviour
     public tk2dSprite iconImage;
     public tk2dSprite bg;
     public UpgradePopup upgradePopup;
+    public int cost;
+    public tk2dTextMesh speedCostT;
+    public tk2dTextMesh damageCostT;
+    
     // Use this for initialization
     void Start()
     {
-        
+        cost = idCannon * 100;
+       
     }
 
     public void loadItem()
     {
+       
         setDamage();
         setSpeed();
         bg.SetSprite("nc1");
@@ -49,9 +55,9 @@ public class ItemPopup : MonoBehaviour
 
             // neu hok du money thi thong bao popup la hok du tien
 
-            if (Prefs.Instance().getCoin() >=300)
+            if (Prefs.Instance().getCoin() >=cost)
             {
-                Prefs.Instance().setCoin(Prefs.Instance().getCoin() - 300);
+                Prefs.Instance().setCoin(Prefs.Instance().getCoin() - cost);
                 Prefs.Instance().setSpeed(idCannon,Prefs.Instance().getSpeed(idCannon) + 1);
                 // thong bao thanh cong
                 setSpeed();
@@ -60,7 +66,8 @@ public class ItemPopup : MonoBehaviour
             else
             {
                 // thong bao hok du tien
-                PopupText.Instance().Show("Không đủ vàng để thực hiện.", 1f);
+                PopupThieuTien.Instance().Show(PopupThieuTien.SHOW_BUY_GOLD);
+                StartScene.Instance().hideAllPopupMain();
             }
         }
     }
@@ -81,9 +88,9 @@ public class ItemPopup : MonoBehaviour
 
             // neu hok du money thi thong bao popup la hok du tien
 
-            if(Prefs.Instance().getCoin() >= 300)
+            if(Prefs.Instance().getCoin() >= cost)
             {
-                Prefs.Instance().setCoin(Prefs.Instance().getCoin() - 300);
+                Prefs.Instance().setCoin(Prefs.Instance().getCoin() - cost);
                 Prefs.Instance().setDamage(idCannon, Prefs.Instance().getDamage(idCannon) + 1);
                 setDamage();
                 PopupText.Instance().Show("Nâng cấp thành công.");
@@ -91,7 +98,8 @@ public class ItemPopup : MonoBehaviour
             else
             {
                 // thong bao hok du tien
-                PopupText.Instance().Show("Không đủ vàng để thực hiện.");
+                PopupThieuTien.Instance().Show(PopupThieuTien.SHOW_BUY_GOLD);
+                StartScene.Instance().hideAllPopupMain();
             }
         }
     }
@@ -109,6 +117,7 @@ public class ItemPopup : MonoBehaviour
     void setSpeed()
     {
         speedValue.text = "Tốc độ: " + Prefs.Instance().getSpeed(idCannon) + "/10";
+        speedCostT.text = "Phí nâng cấp: " + cost;
         if(Prefs.Instance().getSpeed(idCannon) == 10)
         {
             speedUpgradeBtnBg.color = new Color(0.2f, 0.2f, 0.2f, 1f);
@@ -123,6 +132,7 @@ public class ItemPopup : MonoBehaviour
     void setDamage()
     {
         damageValue.text = "Sát thương: " + Prefs.Instance().getDamage(idCannon) + "/10";
+        damageCostT.text = "Phí nâng cấp: " + cost;
         if(Prefs.Instance().getDamage(idCannon) == 10)
         {
             damageUpgradeBtnBg.color = new Color(0.2f, 0.2f, 0.2f, 1f);

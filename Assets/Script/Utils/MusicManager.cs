@@ -7,7 +7,7 @@ public class MusicManager : MonoBehaviour
     public AudioClip musicBg;
     public bool active;
 
-    public static MusicManager GetInstance()
+    public static MusicManager Instance()
     {
         if (_instance == null)
         {

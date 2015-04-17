@@ -161,7 +161,7 @@ public class Fish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MainGameScript.Instance().state != MainGameScript.GameState.ENDGAME)
+        if(MainGameScript.Instance().state != MainGameScript.GameState.ENDGAME && MainGameScript.Instance().state != MainGameScript.GameState.PAUSE)
         {
             if (!isSetDanh)
             {
@@ -270,6 +270,8 @@ public class Fish : MonoBehaviour
         }
         // create coin
         CoinManager.Instance().createCoin(coreFish.coin, transform.position);
+        EffectManager.Instance().dropItem(transform.position);
+
         MainGameScript.Instance().addHealth(coreFish.indexFish * 1f);
         destroySelf();
 

@@ -62,9 +62,14 @@ public class CoinManager : MonoBehaviour
     public void subGold(int value)
     {
         valueG -= value;
+        if(valueG <= 0)
+        {
+            valueG = 0;
+            MainGameScript.Instance().hetCoin();
+        }
         Prefs.Instance().setCoin(valueG);
         fixText();
-
+        
     }
 }
 

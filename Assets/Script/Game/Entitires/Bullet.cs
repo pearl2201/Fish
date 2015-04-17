@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MainGameScript.Instance().state != MainGameScript.GameState.ENDGAME)
+        if(MainGameScript.Instance().state != MainGameScript.GameState.ENDGAME && MainGameScript.Instance().state != MainGameScript.GameState.PAUSE)
         {
             pos = transform.position;
             pos += speed;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System;
 public class Prefs
 {
     private static Prefs _instance;
@@ -14,6 +14,9 @@ public class Prefs
     private static string NUMB_SET = "numb_set";
     private static string NUMB_BOMB = "numn_bomb";
     private static string NUMB_HOURGLASS = "numb_hourglass";
+    private static string LIVE = "Live";
+    private static string LAST_TIME_ADD_LIVE = "last_time_add_live";
+    public static bool isFirstplay;
     public static Prefs Instance()
     {
         if (_instance == null)
@@ -29,14 +32,16 @@ public class Prefs
         if (PlayerPrefs.HasKey(VERSION_CODE))
         {
             // getData()
-
+           // initData();
             if (PlayerPrefs.GetInt(VERSION_CODE) != Constants.VERSION_CODE)
             {
+                isFirstplay = true;
                 initData();
             }
         }
         else
         {
+            isFirstplay = false;
             Debug.Log("no key");
             initData();
         }
@@ -47,20 +52,31 @@ public class Prefs
         Debug.Log("init Data");
 
         PlayerPrefs.SetInt(VERSION_CODE, Constants.VERSION_CODE);
-        setCoin(10000);
+        setCoin(1000);
         for (int i = 1; i < 8; i++)
         {
             setDamage(i, 1);
             setSpeed(i, 1);
-            setNumbBomb(10);
-            setNumbHourGlass(10);
-            setNumbSet(10);
+            setNumbBomb(5);
+            setNumbHourGlass(5);
+            setNumbSet(5);
             setSound(true);
             setMusic(true);
+            setLive(50);
+            SetLastTimeAddLive(DateTime.Now);
         }
         PlayerPrefs.Save();
     }
+    public void SetLastTimeAddLive(DateTime time)
+    {
 
+        SaveString(LAST_TIME_ADD_LIVE, time.ToString());
+    }
+
+    public DateTime GetLastTimeAddLive()
+    {
+        return Convert.ToDateTime(GetString(LAST_TIME_ADD_LIVE));
+    }
     public void setDamage(int idCannon, int value)
     {
         SetInt(UPGRADE_DAMAGE + idCannon, value);
@@ -139,6 +155,16 @@ public class Prefs
         return GetInt(NUMB_HOURGLASS);
     }
 
+
+    public void setLive(int live)
+    {
+        SetInt(LIVE, live);
+    }
+
+    public int getLive()
+    {
+        return GetInt(LIVE);
+    }
     ////////////////////////////////////////////
 
     public int GetInt(string name)

@@ -35,13 +35,14 @@ public class PopupText : MonoBehaviour
     public void Show(string mess)
     {
         gameObject.SetActive(true);
-        this.message.text = mess;
+        Debug.Log("PopupText: " + mess);
+        message.text = mess;
     }
 
     public void Show(string mess, float duration)
     {
         gameObject.SetActive(true);
-        this.message.text = mess;
+       message.text = mess;
         StartCoroutine(closeAfterTime(duration));
     }
 

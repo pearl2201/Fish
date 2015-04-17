@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_GENERICS;ENABLE_SUBSTANCE;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;UNITY_ANDROID_API;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_3_4;UNITY_4_3;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_5_4;UNITY_4_5;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;UNITY_ANDROID_API;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/Setup/Unity_Setup/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity4.5/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/Setup/Unity_Setup/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity4.5/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -58,11 +58,14 @@
      <Compile Include="Assets\Script\Game\Entitires\Fish\CoreFish.cs" />
      <Compile Include="Assets\Script\Game\Entitires\Fish\DataFishContainer.cs" />
      <Compile Include="Assets\Script\Game\Entitires\Fish\TypeFish.cs" />
+     <Compile Include="Assets\Script\Game\Entitires\HealthDisplay.cs" />
+     <Compile Include="Assets\Script\Game\Entitires\ItemEffectCircle.cs" />
      <Compile Include="Assets\Script\Game\Entitires\Luoi.cs" />
      <Compile Include="Assets\Script\Game\FishManager.cs" />
      <Compile Include="Assets\Script\Game\MainGameScript.cs" />
      <Compile Include="Assets\Script\Game\Utils\LuoiManager.cs" />
      <Compile Include="Assets\Script\Game\Utils\MyExtensions.cs" />
+     <Compile Include="Assets\Script\JavaMessage.cs" />
      <Compile Include="Assets\Script\StartScene\StartScene.cs" />
      <Compile Include="Assets\Script\UpgradePopup\CloseBtn.cs" />
      <Compile Include="Assets\Script\UpgradePopup\CloseUpgradePopupInterface.cs" />
@@ -72,11 +75,15 @@
      <Compile Include="Assets\Script\UpgradePopup\ItemVatPham.cs" />
      <Compile Include="Assets\Script\UpgradePopup\MuaVatPham.cs" />
      <Compile Include="Assets\Script\UpgradePopup\PopupText.cs" />
+     <Compile Include="Assets\Script\UpgradePopup\PopupThieuTien.cs" />
      <Compile Include="Assets\Script\UpgradePopup\UpgradePopup.cs" />
      <Compile Include="Assets\Script\Utils\Close\CloseInterface.cs" />
      <Compile Include="Assets\Script\Utils\Constants.cs" />
+     <Compile Include="Assets\Script\Utils\ManagerAddLive.cs" />
+     <Compile Include="Assets\Script\Utils\MusicButton.cs" />
      <Compile Include="Assets\Script\Utils\MusicManager.cs" />
      <Compile Include="Assets\Script\Utils\Prefs.cs" />
+     <Compile Include="Assets\Script\Utils\SoundButton.cs" />
      <Compile Include="Assets\Script\Utils\SoundManager.cs" />
      <Compile Include="Assets\TK2DROOT\tk2d\Code\Camera\tk2dCamera.cs" />
      <Compile Include="Assets\TK2DROOT\tk2d\Code\Camera\tk2dCameraAnchor.cs" />

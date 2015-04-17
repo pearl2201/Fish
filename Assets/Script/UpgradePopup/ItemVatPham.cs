@@ -12,7 +12,7 @@ public class ItemVatPham : MonoBehaviour
 
     public tk2dSprite defineIcon;
     public tk2dSprite bgIcon;
-
+    public tk2dTextMesh priceText;
     public MuaVatPham muaVatPham;
     public enum TYPEITEMVATPHAM
     {
@@ -25,16 +25,19 @@ public class ItemVatPham : MonoBehaviour
         if (type == TYPEITEMVATPHAM.BOMB)
         {
             avaiableCount = Prefs.Instance().getNumbBomb();
+            cost = 200;
         }
         else if (type == TYPEITEMVATPHAM.HOURGLASS)
         {
             avaiableCount = Prefs.Instance().getNumbGlass();
+            cost = 300;
         }
         else if (type == TYPEITEMVATPHAM.SET)
         {
             avaiableCount = Prefs.Instance().getNumbSet();
+            cost = 100;
         }
-        cost = 300;
+       
         bgIcon.SetSprite("nc1");
         costT.text = "Giá: " + cost;
         avaiableCountT.text = "Hiện có: " + avaiableCount;
@@ -60,6 +63,7 @@ public class ItemVatPham : MonoBehaviour
     {
         if (Prefs.Instance().getCoin() >= cost)
         {
+            Prefs.Instance().setCoin(Prefs.Instance().getCoin() - cost);
             if (type == TYPEITEMVATPHAM.BOMB)
             {
                 Prefs.Instance().setNumbBomb(Prefs.Instance().getNumbBomb() + 1);
@@ -76,7 +80,8 @@ public class ItemVatPham : MonoBehaviour
         }
         else
         {
-            PopupText.Instance().Show("Không đủ vàng.");
+            PopupThieuTien.Instance().Show(PopupThieuTien.SHOW_BUY_GOLD);
+            StartScene.Instance().hideAllPopupMain();
         }
     }
 

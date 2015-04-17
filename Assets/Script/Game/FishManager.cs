@@ -24,6 +24,11 @@ public class FishManager : MonoBehaviour
 
     void Start()
     {
+        
+    }
+
+    public void spawnFishFirst()
+    {
         float limit = Random.Range(2, 4);
         for(int i = 0; i < limit; i++)
         {
