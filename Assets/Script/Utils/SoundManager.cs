@@ -119,11 +119,11 @@ public class SoundManager : MonoBehaviour
     {
         if (active)
         {
-            if (audio.isPlaying)
-                audio.Stop();
-            audio.clip = clip;
-            audio.loop = false;
-            audio.Play();
+            if (GetComponent<AudioSource>().isPlaying)
+                GetComponent<AudioSource>().Stop();
+            GetComponent<AudioSource>().clip = clip;
+            GetComponent<AudioSource>().loop = false;
+            GetComponent<AudioSource>().Play();
             StartCoroutine(stopSoundAfterTime(time, clip));
         }
 
@@ -134,8 +134,8 @@ public class SoundManager : MonoBehaviour
         if (active)
         {
             yield return new WaitForSeconds(time);
-            if (audio.isPlaying)
-                audio.Stop();
+            if (GetComponent<AudioSource>().isPlaying)
+                GetComponent<AudioSource>().Stop();
 
         }
     }
@@ -146,9 +146,9 @@ public class SoundManager : MonoBehaviour
         if (active)
         {
             Debug.Log("Play sound once: " + clip.name);
-            audio.clip = clip;
-            audio.loop = false;
-            audio.Play();
+            GetComponent<AudioSource>().clip = clip;
+            GetComponent<AudioSource>().loop = false;
+            GetComponent<AudioSource>().Play();
             //AudioSource.PlayClipAtPoint (clip, Vector3.zero);
         }
     }
@@ -157,8 +157,8 @@ public class SoundManager : MonoBehaviour
     {
         if (active)
         {
-            if (audio.isPlaying)
-                audio.Stop();
+            if (GetComponent<AudioSource>().isPlaying)
+                GetComponent<AudioSource>().Stop();
         }
     }
 
@@ -166,8 +166,8 @@ public class SoundManager : MonoBehaviour
     {
         if (active)
         {
-            if (audio.clip == clip && audio.isPlaying)
-                audio.Stop();
+            if (GetComponent<AudioSource>().clip == clip && GetComponent<AudioSource>().isPlaying)
+                GetComponent<AudioSource>().Stop();
         }
     }
 
@@ -176,11 +176,11 @@ public class SoundManager : MonoBehaviour
         if (active)
         {
 
-            if (audio.isPlaying)
-                audio.Stop();
-            audio.clip = clip;
-            audio.loop = true;
-            audio.Play();
+            if (GetComponent<AudioSource>().isPlaying)
+                GetComponent<AudioSource>().Stop();
+            GetComponent<AudioSource>().clip = clip;
+            GetComponent<AudioSource>().loop = true;
+            GetComponent<AudioSource>().Play();
         }
 
     }

@@ -1,1 +1,11 @@
-Temp/UnityLockfile
+﻿# =============== #
+# Unity generated #
+# =============== #
+/Temp
+/obj
+/library
+*.csproj
+*.unityproj
+*.sln
+*.userprefs
+/ProjectSettings/ProjectSettings.asset

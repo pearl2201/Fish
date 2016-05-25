@@ -43,7 +43,7 @@ public class MusicManager : MonoBehaviour
 
     public void stop()
     {
-        audio.Stop();
+        GetComponent<AudioSource>().Stop();
     }
 
     public bool isMusicActive()
@@ -58,14 +58,14 @@ public class MusicManager : MonoBehaviour
         Prefs.Instance().setMusic(_active);
         if (active)
         {
-            audio.mute = false;
-            audio.clip = musicBg;
-            audio.Play();
+            GetComponent<AudioSource>().mute = false;
+            GetComponent<AudioSource>().clip = musicBg;
+            GetComponent<AudioSource>().Play();
         }
         else
         {
-            audio.mute = true;
-            audio.Stop();
+            GetComponent<AudioSource>().mute = true;
+            GetComponent<AudioSource>().Stop();
         }
     }
 
